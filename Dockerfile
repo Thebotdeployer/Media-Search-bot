@@ -1,7 +1,7 @@
 # Using Python 3.10 to avoid asyncio.coroutine issues
 FROM python:3.10-slim-buster
 
-RUN apt-get update && apt-get install -y gcc python3-dev libffi-dev && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y gcc python3-dev libffi-dev netcat && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade pip
 
@@ -20,4 +20,5 @@ RUN pip install --user --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD python3 bot.py
+# Start netcat in the background to keep port 8000 open for health checks
+CMD (nc -lkp 8000 & ) && python3 bot.py
