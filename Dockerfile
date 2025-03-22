@@ -1,4 +1,5 @@
-FROM python:3.10-slim-buster  # Downgrade to Python 3.10
+# Using Python 3.10 to avoid asyncio.coroutine issues
+FROM python:3.10-slim-buster
 
 RUN apt-get update && apt-get install -y gcc python3-dev libffi-dev && rm -rf /var/lib/apt/lists/*
 
