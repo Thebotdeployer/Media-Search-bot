@@ -1,5 +1,7 @@
 FROM python:3-slim-buster
 
+RUN apt-get update && apt-get install -y gcc python3-dev libffi-dev && rm -rf /var/lib/apt/lists/*
+
 RUN pip install --upgrade pip
 
 ENV USER botx
@@ -11,7 +13,6 @@ RUN mkdir -p $BOT
 RUN chown $USER:$USER $BOT
 USER $USER
 WORKDIR $BOT
-
 
 COPY requirements.txt requirements.txt
 RUN pip install --user --no-cache-dir -r requirements.txt
